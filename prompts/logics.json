@@ -1,0 +1,402 @@
+[
+    {
+        "prompt": "Give the truth table for ¬A (negation).",
+        "solution": "If A is true (T) then ¬A is false (F); if A is false (F) then ¬A is true (T)."
+    },
+    {
+        "prompt": "Give the truth table for A ∧ B (conjunction).",
+        "solution": "A ∧ B is true only when both A and B are true. Rows: (T,T)→T, (T,F)→F, (F,T)→F, (F,F)→F."
+    },
+    {
+        "prompt": "Give the truth table for A ∨ B (disjunction).",
+        "solution": "A ∨ B is true when at least one of A or B is true. Rows: (T,T)→T, (T,F)→T, (F,T)→T, (F,F)→F."
+    },
+    {
+        "prompt": "Give the truth table for A → B (implication) and explain the truth of the case A=F, B=T and A=F, B=F.",
+        "solution": "A → B is false only when A is true and B is false. Rows: (T,T)→T, (T,F)→F, (F,T)→T, (F,F)→T. When A is false the implication is true (vacuously)."
+    },
+    {
+        "prompt": "Give the truth table for A ↔ B (biconditional).",
+        "solution": "A ↔ B is true exactly when A and B have the same truth value. Rows: (T,T)→T, (T,F)→F, (F,T)→F, (F,F)→T."
+    },
+    {
+        "prompt": "State and apply De Morgan's laws for ¬(A ∧ B) and ¬(A ∨ B).",
+        "solution": "¬(A ∧ B) ≡ ¬A ∨ ¬B and ¬(A ∨ B) ≡ ¬A ∧ ¬B. To apply, push negation inward turning conjunctions into disjunctions and vice versa."
+    },
+    {
+        "prompt": "Convert (A ∨ (B ∧ C)) to an equivalent formula in conjunctive normal form (CNF).",
+        "solution": "Distribute ∨ over ∧: A ∨ (B ∧ C) ≡ (A ∨ B) ∧ (A ∨ C). This is the CNF."
+    },
+    {
+        "prompt": "Explain the notions: tautology, contradiction, satisfiable, and logically equivalent.",
+        "solution": "Tautology: true under every valuation. Contradiction: false under every valuation. Satisfiable: true under at least one valuation. Logically equivalent: two formulas have identical truth values under every valuation."
+    },
+    {
+        "prompt": "Show that ¬(A → B) is logically equivalent to A ∧ ¬B.",
+        "solution": "A → B ≡ ¬A ∨ B, so ¬(A → B) ≡ ¬(¬A ∨ B) ≡ A ∧ ¬B by De Morgan."
+    },
+    {
+        "prompt": "Translate the English sentence \"If it rains then the ground is wet\" into propositional logic and show when it is false.",
+        "solution": "Let R = \"it rains\", W = \"ground is wet\". Formula: R → W. It is false exactly when R is true and W is false (it rains but ground is not wet)."
+    },
+    {
+        "prompt": "Give the natural deduction introduction and elimination rules for ∧ (and).",
+        "solution": "∧-Introduction: from A and B infer A ∧ B. ∧-Elimination: from A ∧ B infer A; and from A ∧ B infer B."
+    },
+    {
+        "prompt": "State a simple method to test whether a propositional formula is satisfiable using truth tables.",
+        "solution": "List all valuations of propositional variables, evaluate the formula on each row; if any row yields true, the formula is satisfiable. If none do, it's unsatisfiable (a contradiction)."
+    },
+    {
+        "prompt": "Give the truth table for A NAND B (A ↑ B).",
+        "solution": "A ↑ B is true except when both A and B are true. Rows: (T,T)→F, (T,F)→T, (F,T)→T, (F,F)→T."
+    },
+    {
+        "prompt": "Give the truth table for A NOR B (A ↓ B).",
+        "solution": "A ↓ B is true only when both A and B are false. Rows: (T,T)→F, (T,F)→F, (F,T)→F, (F,F)→T."
+    },
+    {
+        "prompt": "Give the truth table for A XOR B (exclusive or).",
+        "solution": "A ⊕ B is true when exactly one of A or B is true. Rows: (T,T)→F, (T,F)→T, (F,T)→T, (F,F)→F."
+    },
+    {
+        "prompt": "Give the truth table for A XNOR B (equivalence by negated XOR).",
+        "solution": "XNOR is true when A and B have the same truth value. Rows: (T,T)→T, (T,F)→F, (F,T)→F, (F,F)→T."
+    },
+    {
+        "prompt": "Explain the contrapositive equivalence of implication.",
+        "solution": "A → B is logically equivalent to ¬B → ¬A (the contrapositive); they have the same truth table."
+    },
+    {
+        "prompt": "State and apply double negation.",
+        "solution": "Double negation: ¬¬A ≡ A. You can eliminate or introduce two negations without changing meaning."
+    },
+    {
+        "prompt": "State the commutative laws for ∧ and ∨.",
+        "solution": "Commutative: A ∧ B ≡ B ∧ A and A ∨ B ≡ B ∨ A; order of operands does not matter."
+    },
+    {
+        "prompt": "State the associative laws for ∧ and ∨.",
+        "solution": "Associative: (A ∧ B) ∧ C ≡ A ∧ (B ∧ C) and (A ∨ B) ∨ C ≡ A ∨ (B ∨ C); grouping does not matter."
+    },
+    {
+        "prompt": "State the distributive laws in propositional logic.",
+        "solution": "Distributive: A ∧ (B ∨ C) ≡ (A ∧ B) ∨ (A ∧ C) and A ∨ (B ∧ C) ≡ (A ∨ B) ∧ (A ∨ C)."
+    },
+    {
+        "prompt": "State the absorption laws and give an example.",
+        "solution": "Absorption: A ∨ (A ∧ B) ≡ A and A ∧ (A ∨ B) ≡ A; e.g., A ∨ (A ∧ B) simplifies to A."
+    },
+    {
+        "prompt": "State idempotent laws for ∧ and ∨.",
+        "solution": "Idempotent: A ∧ A ≡ A and A ∨ A ≡ A; repeating the same operand has no effect."
+    },
+    {
+        "prompt": "Convert A ∧ (B ∨ C) to DNF.",
+        "solution": "Distribute ∧ over ∨: A ∧ (B ∨ C) ≡ (A ∧ B) ∨ (A ∧ C), which is a DNF."
+    },
+    {
+        "prompt": "Define CNF and DNF informally.",
+        "solution": "CNF: conjunction of clauses where each clause is a disjunction of literals. DNF: disjunction of terms where each term is a conjunction of literals."
+    },
+    {
+        "prompt": "Explain the resolution rule with a short example.",
+        "solution": "Resolution: from (A ∨ B) and (¬A ∨ C) infer (B ∨ C). Example: (P ∨ Q) and (¬P ∨ R) resolve to (Q ∨ R)."
+    },
+    {
+        "prompt": "What is unit resolution (unit propagation)?",
+        "solution": "Unit resolution: when a clause is a single literal L, remove ¬L from other clauses or simplify clauses accordingly, propagating consequences."
+    },
+    {
+        "prompt": "Give a simple satisfiable formula example and a satisfying valuation.",
+        "solution": "Formula: A ∨ (¬A ∧ B) is satisfiable; valuation A = T satisfies it (A ∨ ...) = T."
+    },
+    {
+        "prompt": "Give a simple unsatisfiable (contradiction) formula.",
+        "solution": "A ∧ ¬A is unsatisfiable because no valuation makes both A and ¬A true simultaneously."
+    },
+    {
+        "prompt": "Define semantic entailment (logical consequence).",
+        "solution": "Γ ⊨ φ means every valuation that makes all formulas in Γ true also makes φ true."
+    },
+    {
+        "prompt": "Define syntactic derivability.",
+        "solution": "Γ ⊢ φ means φ can be derived from premises Γ using a formal proof system (rules of inference)."
+    },
+    {
+        "prompt": "State the soundness theorem informally.",
+        "solution": "Soundness: if Γ ⊢ φ then Γ ⊨ φ; derivable statements are semantically valid consequences."
+    },
+    {
+        "prompt": "State the completeness theorem informally (for propositional logic).",
+        "solution": "Completeness: if Γ ⊨ φ then Γ ⊢ φ; every semantic consequence has a formal proof."
+    },
+    {
+        "prompt": "State and illustrate Modus Ponens.",
+        "solution": "Modus Ponens: from A and A → B infer B. Example: A, A → B ⊢ B."
+    },
+    {
+        "prompt": "State and illustrate Modus Tollens.",
+        "solution": "Modus Tollens: from A → B and ¬B infer ¬A. Example: if 'If it rains then wet' and not wet, infer not raining."
+    },
+    {
+        "prompt": "Explain the rule of substitution for logical equivalence.",
+        "solution": "If φ ≡ ψ then any occurrence of φ in a formula can be replaced by ψ preserving logical equivalence of the whole formula."
+    },
+    {
+        "prompt": "What is the Tseitin transformation (brief)?",
+        "solution": "Tseitin: introduce fresh variables for subformulas to produce an equisatisfiable CNF of linear size, useful for SAT encoding."
+    },
+    {
+        "prompt": "Convert ¬(A ∨ (¬B ∧ C)) into CNF stepwise.",
+        "solution": "Push negation: ¬A ∧ ¬(¬B ∧ C) ≡ ¬A ∧ (B ∨ ¬C). This is already in CNF: (¬A) ∧ (B ∨ ¬C)."
+    },
+    {
+        "prompt": "Convert (A ∨ B) ∧ C into DNF.",
+        "solution": "Distribute: (A ∨ B) ∧ C ≡ (A ∧ C) ∨ (B ∧ C), a DNF."
+    },
+    {
+        "prompt": "Show implication as a disjunction.",
+        "solution": "A → B is equivalent to ¬A ∨ B; use this to transform implications into propositional connectives."
+    },
+    {
+        "prompt": "Explain vacuous truth for implications.",
+        "solution": "An implication A → B is true when A is false regardless of B; such cases are called vacuously true."
+    },
+    {
+        "prompt": "Clarify material equivalence vs biconditional.",
+        "solution": "Material equivalence A ↔ B is the biconditional connective; it is true exactly when A and B share truth value (equivalent)."
+    },
+    {
+        "prompt": "Define literal, clause, and Horn clause.",
+        "solution": "Literal: atom or its negation. Clause: disjunction of literals. Horn clause: clause with at most one positive literal."
+    },
+    {
+        "prompt": "Why are Horn-SAT instances special?",
+        "solution": "Satisfiability of Horn clauses can be decided in linear time using forward chaining; easier than general SAT."
+    },
+    {
+        "prompt": "Give a formal definition of CNF.",
+        "solution": "CNF is a conjunction of one or more clauses, where each clause is a disjunction of literals."
+    },
+    {
+        "prompt": "Give a formal definition of DNF.",
+        "solution": "DNF is a disjunction of one or more terms, where each term is a conjunction of literals."
+    },
+    {
+        "prompt": "State the ¬-introduction rule (proof by contradiction) in natural deduction.",
+        "solution": "¬-Introduction: assume A, derive a contradiction ⊥, then infer ¬A discharging the assumption."
+    },
+    {
+        "prompt": "State the ¬-elimination (ex falso) rule.",
+        "solution": "From a contradiction (⊥) you may infer any formula B (ex falso quodlibet)."
+    },
+    {
+        "prompt": "Explain the principle of explosion (ex falso quodlibet).",
+        "solution": "If a contradiction holds, then any formula can be derived; inconsistency trivializes a theory."
+    },
+    {
+        "prompt": "Give an example of a proof by contrapositive.",
+        "solution": "To prove A → B, prove ¬B → ¬A instead; e.g., to show 'if n is even then n^2 is even' contrapositive works similarly."
+    },
+    {
+        "prompt": "Prove A→C from A→B and B→C (hypothetical syllogism).",
+        "solution": "Assume A; from A and A→B infer B; from B and B→C infer C; discharge assumption to conclude A→C."
+    },
+    {
+        "prompt": "State the relation (A→B) ∧ (B→C) ⇒ A→C succinctly.",
+        "solution": "If A implies B and B implies C, then A implies C; this is transitivity of implication."
+    },
+    {
+        "prompt": "Describe the semantic tableau (truth tree) method briefly.",
+        "solution": "Build a tree by decomposing formulas according to rules; a closed tree (all branches contradiction) shows unsatisfiability."
+    },
+    {
+        "prompt": "Use a small truth tree to show {A→B, A, ¬B} is inconsistent.",
+        "solution": "Start with A→B, A, ¬B: decompose A→B to ¬A ∨ B; branch gives B which contradicts ¬B; every branch closes, so inconsistent."
+    },
+    {
+        "prompt": "Briefly describe the DPLL algorithm.",
+        "solution": "DPLL: backtracking SAT solver using unit propagation, pure literal elimination, and splitting to search for satisfying assignments."
+    },
+    {
+        "prompt": "What is pure literal elimination?",
+        "solution": "If a literal appears with only one polarity (always positive or always negative), set it to satisfy its clauses and simplify."
+    },
+    {
+        "prompt": "Define a pure literal with an example.",
+        "solution": "Pure literal: appears only as P (never ¬P) or only as ¬P; e.g., in clauses {P ∨ Q, P ∨ R}, P is pure."
+    },
+    {
+        "prompt": "Explain backtracking in SAT solving.",
+        "solution": "Backtracking chooses a variable assignment, propagates consequences, and if contradiction occurs, reverts and tries opposite assignment."
+    },
+    {
+        "prompt": "State briefly why SAT is NP-complete.",
+        "solution": "Cook-Levin theorem: SAT encodes nondeterministic polynomial computations; every NP problem reduces to SAT in polynomial time."
+    },
+    {
+        "prompt": "Simplify using absorption: A ∨ (A ∧ B) ≡ ?",
+        "solution": "A ∨ (A ∧ B) ≡ A by absorption; the larger expression adds nothing beyond A."
+    },
+    {
+        "prompt": "Simplify using idempotence: A ∨ A ≡ ?",
+        "solution": "A ∨ A ≡ A; duplicates of the same literal collapse."
+    },
+    {
+        "prompt": "Show the currying equivalence: (A ∧ B) → C ≡ A → (B → C).",
+        "solution": "(A ∧ B) → C ≡ ¬(A ∧ B) ∨ C ≡ (¬A ∨ ¬B) ∨ C ≡ ¬A ∨ (¬B ∨ C) ≡ A → (B → C)."
+    },
+    {
+        "prompt": "Convert ¬(A ∧ (B ∨ C)) into DNF.",
+        "solution": "¬(A ∧ (B ∨ C)) ≡ ¬A ∨ ¬(B ∨ C) ≡ ¬A ∨ (¬B ∧ ¬C), which is a DNF (disjunction of terms)."
+    },
+    {
+        "prompt": "Give a CNF for A ↔ B.",
+        "solution": "A ↔ B ≡ (A → B) ∧ (B → A) ≡ (¬A ∨ B) ∧ (¬B ∨ A), already in CNF."
+    },
+    {
+        "prompt": "Simplify (A ∨ B) ∧ (A ∨ ¬B).",
+        "solution": "Distribute: ≡ A ∨ (B ∧ ¬B) ≡ A ∨ false ≡ A, since B ∧ ¬B is false."
+    },
+    {
+        "prompt": "Demonstrate unit propagation on clauses {A ∨ B, ¬A, ¬B ∨ C}.",
+        "solution": "¬A makes A ∨ B become B (unit). B makes ¬B ∨ C become C (unit). Propagation sets B=true, C=true."
+    },
+    {
+        "prompt": "Give a pure literal elimination example.",
+        "solution": "Clauses {P ∨ Q, P ∨ R}: P appears only positively (pure), set P=true and simplify clauses (both satisfied)."
+    },
+    {
+        "prompt": "Perform a Tseitin transformation for A ∨ (B ∧ C).",
+        "solution": "Introduce X for (B ∧ C) and Y for A ∨ X. Clauses: (¬X ∨ B), (¬X ∨ C), (X ∨ ¬B ∨ ¬C) for X↔B∧C; (¬Y ∨ A ∨ X), (Y ∨ ¬A), (Y ∨ ¬X) for Y↔A∨X. Conjoin all in CNF."
+    },
+    {
+        "prompt": "Define a prime implicant with a short example.",
+        "solution": "Prime implicant: a minimal conjunction of literals implying the formula. For F = (A ∧ B) ∨ (A ∧ C), A∧B and A∧C are prime implicants."
+    },
+    {
+        "prompt": "Give the minimal models of A ∨ (B ∧ C).",
+        "solution": "Models where formula true with no proper subset true: {A} and {B,C} are minimal satisfying sets of variables."
+    },
+    {
+        "prompt": "Resolve clauses {A ∨ B, ¬A, ¬B} to show inconsistency.",
+        "solution": "Resolve A ∨ B with ¬A to get B. B with ¬B yields empty clause ⊥. Branch closes, set inconsistent."
+    },
+    {
+        "prompt": "Use proof by contradiction to derive ¬A from A → ⊥ and ⊥→? example.",
+        "solution": "If A → ⊥ (i.e. A implies contradiction), assume A then derive ⊥, discharge assumption to infer ¬A by ¬-introduction."
+    },
+    {
+        "prompt": "Define implicate and prime implicate with an example.",
+        "solution": "Implicate: a clause entailed by F. Prime implicate: minimal implicate. For F=A∨B the clause A∨B is a prime implicate."
+    },
+    {
+        "prompt": "Give an example of a formula that is satisfiable but not a tautology.",
+        "solution": "A → B is satisfiable (e.g. A=false) but not a tautology because for A=true,B=false it is false."
+    },
+    {
+        "prompt": "Convert ¬(A → (B ∨ C)) into CNF stepwise.",
+        "solution": "A → (B ∨ C) ≡ ¬A ∨ B ∨ C. Negate: ¬(¬A ∨ B ∨ C) ≡ A ∧ ¬B ∧ ¬C. CNF: (A) ∧ (¬B) ∧ (¬C)."
+    },
+    {
+        "prompt": "How many satisfying assignments does A ∨ B have (two vars)?",
+        "solution": "A ∨ B is true for 3 of 4 valuations: (T,F), (F,T), (T,T) — so 3 satisfying assignments."
+    },
+    {
+        "prompt": "Explain exponential blow-up when converting to CNF (informal).",
+        "solution": "Distributing ∨ over ∧ can duplicate subformulas; e.g. converting a sum-of-products with many nested alternations may produce exponentially many clauses in the worst case."
+    },
+    {
+        "prompt": "Define Negation Normal Form (NNF) with an example.",
+        "solution": "NNF: only ∧, ∨ and literals, negation only on atoms. Example: ¬(A → B) → A ∧ ¬B is in NNF."
+    },
+    {
+        "prompt": "Explain equisatisfiable vs equivalent formulas.",
+        "solution": "Equisatisfiable: both either have a satisfying assignment or not (may differ truth tables). Equivalent: same truth value for every valuation (identical truth table)."
+    },
+    {
+        "prompt": "Give CNF for ¬(A ∧ (B → C)).",
+        "solution": "B → C ≡ ¬B ∨ C; inside: ¬(A ∧ (¬B ∨ C)) ≡ ¬A ∨ (B ∧ ¬C) ≡ (¬A ∨ B) ∧ (¬A ∨ ¬C)."
+    },
+    {
+        "prompt": "Define Skolemization (brief).",
+        "solution": "Remove existential quantifiers by introducing fresh Skolem functions/constants; preserves satisfiability of first-order formulas after prenexing."
+    },
+    {
+        "prompt": "What is variable elimination in SAT preprocessing?",
+        "solution": "Remove a variable by resolving all clauses containing it and replacing them with resolvents, possibly increasing clause count."
+    },
+    {
+        "prompt": "Explain backbone variables.",
+        "solution": "Backbone: variables that have the same value in all satisfying assignments of a formula (forced values)."
+    },
+    {
+        "prompt": "Define model counting (#SAT) briefly.",
+        "solution": "#SAT: the problem of counting the number of satisfying assignments of a Boolean formula; generally #P-complete."
+    },
+    {
+        "prompt": "Describe clause learning (CDCL) in one sentence.",
+        "solution": "When a conflict occurs, analyze the implication graph to derive a new clause (learned clause) that prevents repeating the same conflict."
+    },
+    {
+        "prompt": "What is the complexity of unit propagation per assignment?",
+        "solution": "With watched literals, unit propagation runs amortized linear in the size of the formula per propagation step."
+    },
+    {
+        "prompt": "Define a clause database in modern SAT solvers.",
+        "solution": "Repository of original and learned clauses maintained during search, used for propagation and conflict analysis."
+    },
+    {
+        "prompt": "Why are learned clauses useful?",
+        "solution": "They prune the search space by preventing previously discovered conflicts and can accelerate future propagation."
+    },
+    {
+        "prompt": "Give a CNF for A ⊕ B (XOR).",
+        "solution": "CNF: (A ∨ B) ∧ (¬A ∨ ¬B) enforces exactly-one-true for A and B."
+    },
+    {
+        "prompt": "Convert A → (B ∧ C) into CNF.",
+        "solution": "A → (B ∧ C) ≡ ¬A ∨ (B ∧ C) ≡ (¬A ∨ B) ∧ (¬A ∨ C)."
+    },
+    {
+        "prompt": "State the refutation method for entailment.",
+        "solution": "Γ ⊨ φ iff Γ ∪ {¬φ} is unsatisfiable; prove entailment by showing unsatisfiability of the augmented set."
+    },
+    {
+        "prompt": "Explain resolution completeness succinctly.",
+        "solution": "Resolution is refutation-complete for propositional logic: if a set of clauses is unsatisfiable, resolution derives the empty clause."
+    },
+    {
+        "prompt": "Define clause subsumption with an example.",
+        "solution": "Clause C subsumes D if C's literals are a subset of D's; e.g., A ∨ B subsumes A ∨ B ∨ C and D can be removed."
+    },
+    {
+        "prompt": "What is blocked clause elimination (BCE)?",
+        "solution": "Remove clauses that are blocked on a literal (resolving on that literal always produces tautologies), simplifying the formula without changing satisfiability."
+    },
+    {
+        "prompt": "Explain MaxSAT briefly.",
+        "solution": "MaxSAT: optimization version of SAT that seeks an assignment maximizing the number of satisfied clauses (or minimizing unsatisfied clauses)."
+    },
+    {
+        "prompt": "Give an example of a partial assignment and its effect.",
+        "solution": "Partial assignment {A=true} simplifies clauses: A ∨ B becomes true (removed); ¬A ∨ C becomes C (unit), potentially triggering propagation."
+    },
+    {
+        "prompt": "What is preprocessing in SAT solving?",
+        "solution": "Simplifications applied before search: eliminate pure literals, units, subsumed clauses, apply BCE, variable elimination to reduce formula size."
+    },
+    {
+        "prompt": "Define SMT (Satisfiability Modulo Theories).",
+        "solution": "SMT generalizes SAT by checking satisfiability of formulas over background theories (e.g., arithmetic, arrays) combining Boolean search with theory solvers."
+    },
+    {
+        "prompt": "Explain literal polarity in formulas.",
+        "solution": "Polarity of a literal occurrence is positive if the atom appears unnegated, negative if negated; polarity matters for simplifications and heuristics."
+    },
+    {
+        "prompt": "Define clause width.",
+        "solution": "Width = number of literals in a clause; small-width clauses are generally easier for resolution and propagation."
+    }
+]
