@@ -5,23 +5,39 @@ import urllib3
 import requests
 from settings import *
 import shutil
+from deepeval.metrics import GEval
+from deepeval.test_case import LLMTestCaseParams
+from deepeval.test_case import LLMTestCase
+from deepeval.models import GPTModel
 
 urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 
 class ModelConnection:
 
-    def ollama(url,model,prompt):
-        return requests.post(url=url,json={ "model": model, "prompt": prompt, "stream": False},verify=False)
+    def vllm(url,model,prompt):
+        return requests.post(url=url,json={ "model": model, "messages": [{"role": "user", "content": prompt}], "temperature": 0.2, "max_tokens": 10000, "stream": False},verify=False)
 
 parser = argparse.ArgumentParser()
-parser.add_argument("--ollama-url", "-u", help="OLLAMA server URL", default=None)
+parser.add_argument("--model-url", "-u", help="Model server URL", default=None)
+parser.add_argument("--judge-url", "-j", help="Judge server URL", default=None)
 args, _ = parser.parse_known_args()
 
-if not args.ollama_url:
-    print("OLLAMA URL not provided. Please provide it using the --ollama-url or -u argument.")
+if not args.model_url:
+    print("Model URL not provided. Please provide it using the --model-url or -u argument.")
     exit(1)
 
-ollama_url = args.ollama_url
+if not args.judge_url:
+    print("Judge URL not provided. Please provide it using the --judge-url or -j argument.")
+    exit(1)
+
+model_url = args.model_url+"/v1/chat/completions"
+judge_url = args.judge_url+"/v1"
+
+judge_model = GPTModel(
+    model=JUDGE_MODEL,
+    api_key="dummy",
+    base_url=judge_url
+)
 
 shutil.rmtree('./out/', ignore_errors=True)
 prompt_folder_path = "./prompts"
@@ -38,8 +54,8 @@ for f in prompt_files:
             try:
                 prompt = p["prompt"]
 
-                response = ModelConnection.ollama(ollama_url, MODEL, prompt)
-                response_txt=response.json()["response"]
+                response = ModelConnection.vllm(model_url, MODEL, prompt)
+                response_txt=response.json()["choices"][0]["message"]["content"]
 
                 if response_txt is None or response_txt == "":
                     raise ValueError("empty response")
@@ -47,25 +63,36 @@ for f in prompt_files:
                 os.makedirs("./out", exist_ok=True)
                 os.makedirs(f"./out/{f.split('.json')[0]}", exist_ok=True)
 
-                check_prompt="Are these two sentences semantically the same?\nSentence 1:\n"+response_txt+"\nSentence 2:\n"+p["solution"]+"\nAnswer only with yes or no."
+                correctness_metric = GEval(
+                    name="Correctness",
+                    model=judge_model,
+                    evaluation_steps=[
+                        "Check whether the facts in 'actual output' contradicts any facts in 'expected output'",
+                        f"Check if the 'actual output' is in the {f.split('.json')[0]} category",
+                        "Check if the 'actual output' is semantically the same as the 'expected output'",
+                        "If the 'expected output' is composed of multiple parts, check if the 'actual output' contains all the necessary parts and is correct in each part, if the 'actual output' is composed of more or less parts than the 'expected output', check if the final result is correct even with the different number of parts",
+                    ],
+                    evaluation_params=[LLMTestCaseParams.INPUT, LLMTestCaseParams.ACTUAL_OUTPUT, LLMTestCaseParams.EXPECTED_OUTPUT],
+                )
 
-                check_response = ModelConnection.ollama(ollama_url, MODEL, check_prompt)
-                check_response_txt = check_response.json()["response"]
+                test_case = LLMTestCase(
+                    input=prompt,
+                    actual_output=response_txt,
+                    expected_output=p["solution"]
+                )
 
-                if check_response_txt.lower().strip().startswith("yes"):
-                    check_response_txt="yes"
-                elif check_response_txt.lower().strip().startswith("no"):
-                    check_response_txt="no"
-                else:
-                    raise ValueError("unexpected check response: "+check_response_txt)
+                correctness_metric.measure(test_case)
+
+                print("Score:", correctness_metric.score)
+                print("Reason:", correctness_metric.reason)
 
                 with open(f"./out/{f.split('.json')[0]}/out.json","a") as f_res:
                     if p_index==0:
                         f_res.write("[")
                     if p_index!=len(prompt_arr)-1:
-                        f_res.write(json.dumps({"response": response_txt, "check": check_response_txt})+",")
+                        f_res.write(json.dumps({"response": response_txt, "score": correctness_metric.score})+",")
                     else:
-                        f_res.write(json.dumps({"response": response_txt, "check": check_response_txt}))
+                        f_res.write(json.dumps({"response": response_txt, "score": correctness_metric.score}))
                         f_res.write("]")
                     last_successful_index=p_index
                     p_index+=1

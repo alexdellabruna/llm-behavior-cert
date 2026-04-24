@@ -13,7 +13,7 @@ for d in os.listdir("out/"):
                     res_file_raw=res_file_raw[:-1]+"]"
 
                 result_arr = json.loads(res_file_raw)
-                plt.plot(range(len(result_arr)), [1 if r["check"]=="yes" else 0 for r in result_arr], label=f.split(".json")[0])
+                plt.plot(range(len(result_arr)), [r["score"] for r in result_arr], label=f.split(".json")[0])
                 plt.savefig(os.path.join("out/", d, f.split(".json")[0]+".png"))
                 plt.show()
                 plt.close()
