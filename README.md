@@ -18,5 +18,11 @@ python visualize.py
 to fine-tune:
 
 ```bash
-axolotl train fine-tuning-axolotl/gpt-oss-20b-lora.yaml
+axolotl train fine-tuning-axolotl/gpt-oss-20b-lora.yaml --output-dir="./fine-tuning-axolotl"
+```
+
+to merge LoRa weights:
+
+```bash
+axolotl merge-lora fine-tuning-axolotl/gpt-oss-20b-lora.yaml --lora-model-dir="./fine-tuning-axolotl/gpt-oss-lora-adapter" --output-dir="./fine-tuning-axolotl/final"
 ```

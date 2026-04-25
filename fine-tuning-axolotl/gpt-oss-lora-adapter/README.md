@@ -24,7 +24,7 @@ should probably proofread and complete it, then remove this comment. -->
 axolotl version: `0.16.1`
 ```yaml
 base_model: openai/gpt-oss-20b
-use_kernels: false
+use_kernels: true
 model_quantization_config: Mxfp4Config
 model_quantization_config_kwargs:
   dequantize: true
@@ -32,7 +32,7 @@ model_quantization_config_kwargs:
 plugins:
   - axolotl.integrations.cut_cross_entropy.CutCrossEntropyPlugin
 
-experimental_skip_move_to_device: true  # prevent OOM by NOT putting model to GPU before sharding
+experimental_skip_move_to_device: true  # prevent OOM by not putting model to GPU before sharding
 
 datasets:
   - path: HuggingFaceH4/Multilingual-Thinking
@@ -47,6 +47,19 @@ output_dir: ./outputs/gpt-oss-out/
 sequence_len: 4096
 sample_packing: true
 
+adapter: lora
+lora_r: 8
+lora_alpha: 16
+lora_dropout: 0.0  # dropout not supported when using LoRA over expert parameters
+lora_target_linear: true
+
+# TODO: not supported for now, see peft#2710
+#lora_target_parameters:  # target the experts in the last two layers
+#  - "22._checkpoint_wrapped_module.mlp.experts.gate_up_proj"
+#  - "22._checkpoint_wrapped_module.mlp.experts.down_proj"
+#  - "23._checkpoint_wrapped_module.mlp.experts.gate_up_proj"
+#  - "23._checkpoint_wrapped_module.mlp.experts.down_proj"
+
 wandb_project:
 wandb_entity:
 wandb_watch:
@@ -57,33 +70,26 @@ trackio_project_name:
 trackio_run_name:
 trackio_space_id:
 
-gradient_accumulation_steps: 2
+gradient_accumulation_steps: 8
 micro_batch_size: 1
 num_epochs: 1
 
-adapter: lora
-lora_r: 8
-lora_alpha: 16
-lora_dropout: 0.0  # dropout not supported when using LoRA over expert parameters
-lora_target_linear: true
-
 optimizer: adamw_torch_8bit
 lr_scheduler: constant_with_warmup
-learning_rate: 2e-5
+learning_rate: 2e-4
 
 bf16: true
 tf32: true
 
 flash_attention: false
-attn_implementation: eager  # this is not needed if using flash_attn >= 2.8.3
+attn_implementation: eager
 
 gradient_checkpointing: true
 activation_offloading: true
 
 logging_steps: 1
 saves_per_epoch: 1
-
-warmup_ratio: 0.03
+warmup_ratio: 0.1
 
 special_tokens:
 eot_tokens:
@@ -91,7 +97,6 @@ eot_tokens:
 
 # choose the zero3 configuration that best fits your system capabilities
 deepspeed: deepspeed_configs/zero3_bf16.json
-
 ```
 
 </details><br>
@@ -117,18 +122,18 @@ More information needed
 ### Training hyperparameters
 
 The following hyperparameters were used during training:
-- learning_rate: 2e-05
+- learning_rate: 0.0002
 - train_batch_size: 1
 - eval_batch_size: 1
 - seed: 42
 - distributed_type: multi-GPU
 - num_devices: 4
-- gradient_accumulation_steps: 2
-- total_train_batch_size: 8
+- gradient_accumulation_steps: 8
+- total_train_batch_size: 32
 - total_eval_batch_size: 4
 - optimizer: Use OptimizerNames.ADAMW_TORCH_8BIT with betas=(0.9,0.999) and epsilon=1e-08 and optimizer_args=No additional optimizer arguments
 - lr_scheduler_type: constant_with_warmup
-- training_steps: 33
+- training_steps: 8
 
 ### Training results
 
