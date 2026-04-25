@@ -51,6 +51,7 @@ for f in prompt_files:
         p_index = 0
         while p_index < len(prompt_arr):
             p = prompt_arr[p_index]
+            print(f"Processing {f}, prompt {p['prompt']}, prompt index: {p_index+1}/{len(prompt_arr)}")
             try:
                 prompt = p["prompt"]
 
@@ -90,13 +91,13 @@ for f in prompt_files:
                     if p_index==0:
                         f_res.write("[")
                     if p_index!=len(prompt_arr)-1:
-                        f_res.write(json.dumps({"response": response_txt, "score": correctness_metric.score})+",")
+                        f_res.write(json.dumps({"response": response_txt, "score": correctness_metric.score, "reason": correctness_metric.reason})+",")
                     else:
-                        f_res.write(json.dumps({"response": response_txt, "score": correctness_metric.score}))
+                        f_res.write(json.dumps({"response": response_txt, "score": correctness_metric.score, "reason": correctness_metric.reason}))
                         f_res.write("]")
                     last_successful_index=p_index
                     p_index+=1
 
             except Exception as e:
                 print("Error during generation ", str(e))
-                p_index = last_successful_index
+                p_index = last_successful_index+1
