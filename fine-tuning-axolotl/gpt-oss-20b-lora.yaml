@@ -1,0 +1,68 @@
+base_model: openai/gpt-oss-20b
+use_kernels: false
+model_quantization_config: Mxfp4Config
+model_quantization_config_kwargs:
+  dequantize: true
+
+plugins:
+  - axolotl.integrations.cut_cross_entropy.CutCrossEntropyPlugin
+
+experimental_skip_move_to_device: true  # prevent OOM by NOT putting model to GPU before sharding
+
+datasets:
+  - path: HuggingFaceH4/Multilingual-Thinking
+    type: chat_template
+    field_thinking: thinking
+    template_thinking_key: thinking
+
+dataset_prepared_path: last_run_prepared
+val_set_size: 0
+output_dir: ./outputs/gpt-oss-out/
+
+sequence_len: 4096
+sample_packing: true
+
+wandb_project:
+wandb_entity:
+wandb_watch:
+wandb_name:
+wandb_log_model:
+
+trackio_project_name:
+trackio_run_name:
+trackio_space_id:
+
+gradient_accumulation_steps: 2
+micro_batch_size: 1
+num_epochs: 1
+
+adapter: lora
+lora_r: 8
+lora_alpha: 16
+lora_dropout: 0.0  # dropout not supported when using LoRA over expert parameters
+lora_target_linear: true
+
+optimizer: adamw_torch_8bit
+lr_scheduler: constant_with_warmup
+learning_rate: 2e-5
+
+bf16: true
+tf32: true
+
+flash_attention: false
+attn_implementation: eager
+
+gradient_checkpointing: true
+activation_offloading: true
+
+logging_steps: 1
+saves_per_epoch: 1
+
+warmup_ratio: 0.03
+
+special_tokens:
+eot_tokens:
+  - "<|end|>"
+
+# choose the zero3 configuration that best fits your system capabilities
+deepspeed: fine-tuning-axolotl/zero3_bf16.json
