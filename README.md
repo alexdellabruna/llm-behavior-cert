@@ -26,3 +26,5 @@ to merge LoRa weights:
 ```bash
 axolotl merge-lora fine-tuning-axolotl/gpt-oss-20b-lora.yaml --lora-model-dir="./fine-tuning-axolotl/gpt-oss-lora-adapter" --output-dir="./fine-tuning-axolotl/final"
 ```
+
+> NOTE: the repo doesn't include the full merged model due to storage limits, the complete model can be downloaded from the following <a href="https://huggingface.co/alexdellabruna/gpt-oss-20b-sft-lora">Hugging Face Repo</a>
