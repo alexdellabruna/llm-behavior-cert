@@ -36,7 +36,14 @@ for d in os.listdir("out/"):
             plt.close()
 
             js_distance=spd.jensenshannon(result_arr, compare_result_arr)
+
+            integral=False
+
+            if js_distance < 0.1:
+                integral=True
+            
             print(f"Jensen-Shannon distance for {d}: {js_distance}")
+            print(f"Integral for {d}: {integral}")
 
             with open(os.path.join("analyze_out/", d, "distance.json"), "w") as distance_file:
-                distance_file.write(json.dumps({"js_distance": js_distance}))
+                distance_file.write(json.dumps({"js_distance": js_distance, "integral": integral}))
