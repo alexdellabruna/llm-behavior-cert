@@ -1,5 +1,6 @@
 import os
 import json
+from matplotlib import pyplot as plt
 import scipy.spatial.distance as spd
 import argparse
 
@@ -26,6 +27,16 @@ for d in os.listdir("out/"):
             compare_result_arr = json.loads(compare_file_raw)
             compare_result_arr = [r["score"] for r in compare_result_arr]
 
-            js_distance=spd.jensenshannon(result_arr, compare_result_arr)
+            plt.plot(range(len(result_arr)), result_arr)
+            plt.plot(range(len(compare_result_arr)), compare_result_arr)
+            os.makedirs("./analyze_out", exist_ok=True)
+            os.makedirs(f"./analyze_out/{d}", exist_ok=True)
+            plt.savefig(os.path.join("analyze_out/", d + ".png"))
+            plt.show()
+            plt.close()
 
-            print(js_distance)
+            js_distance=spd.jensenshannon(result_arr, compare_result_arr)
+            print(f"Jensen-Shannon distance for {d}: {js_distance}")
+
+            with open(os.path.join("analyze_out/", d, "distance.json"), "w") as distance_file:
+                distance_file.write(json.dumps({"js_distance": js_distance}))
