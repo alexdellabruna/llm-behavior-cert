@@ -5,7 +5,7 @@ The integrity is then evaluated calculating the Jensen-Shannon divergence.
 
 The model used in the experiments is `gpt-oss-20b`, on that is applied a soft fine tuning with LoRA, then the integrity is calculated. For a full overview of the process see the methodology section.
 
-The experiments are conducted on an architecture composed of a K3S cluster with 4 GPUs (1 A40 and 3 L40S):
+The experiments were conducted on an architecture composed of a K3S cluster with 4 GPUs (1 A40 and 3 L40S):
 - model server: vLLM (both for `gpt-oss-20b` and `gpt-oss-20b-sft-lora`)
 - judge model server: Ollama (running `deepseek-r1:70b`)
 
