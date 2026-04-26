@@ -1,5 +1,6 @@
 import os
 import json
+import shutil
 from matplotlib import pyplot as plt
 import scipy.spatial.distance as spd
 import argparse
@@ -13,6 +14,8 @@ if not args.comp_out_dir:
     exit(1)
 
 comp_out_dir = args.comp_out_dir
+
+shutil.rmtree('./analyze_out/', ignore_errors=True)
 
 for d in os.listdir("out/"):
     with open(os.path.join("out/", d, "out.json"), "r") as result_file:
