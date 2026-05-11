@@ -26,17 +26,16 @@ python visualize.py
 to fine-tune:
 
 ```bash
-axolotl train fine-tuning-axolotl/gpt-oss-20b-lora.yaml --output-dir="./fine-tuning-axolotl"
+llamafactory-cli train fine-tuning-llama-factory/gpt_lora_sft.yaml
 ```
 
 to merge LoRA weights:
 
 ```bash
-axolotl merge-lora fine-tuning-axolotl/gpt-oss-20b-lora.yaml --lora-model-dir="./fine-tuning-axolotl/gpt-oss-lora-adapter" --output-dir="./fine-tuning-axolotl/final"
+llamafactory-cli export --model_name_or_path openai/gpt-oss-20b \
+--adapter_name_or_path saves/gpt-20b/lora/sft \
+--export_dir gpt_merged
 ```
-
-> NOTE: The produced model can work only with transformers library setting `strict=False` while loading weights  
-> To load the resulting model in vLLM, instead of merging, pass the LoRA adapter directly, see `k8s_vllm_deploy/gpt-oss-20b-sft-lora.yaml` for reference
 
 to calculate distance:
 
