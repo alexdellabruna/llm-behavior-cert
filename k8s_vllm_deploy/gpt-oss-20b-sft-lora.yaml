@@ -8,7 +8,7 @@ image:
   # -- Image tag
   tag: "latest"
   # -- Container launch command
-  command: ["vllm", "serve", "openai/gpt-oss-20b", "--enable-lora", "--lora-modules", '{"name": "lora", "path": "/data/gpt-oss-lora"}', "--served-model-name", "gpt-oss-20b-sft-lora", "--dtype", "bfloat16", "--block-size", "32", "--max-num-batched-tokens", "8192", "--host", "0.0.0.0", "--port", "8000"]
+  command: ["vllm", "serve", "alexdellabruna/gpt-oss-20b-sft-lora", "--served-model-name", "gpt-oss-20b-sft-lora", "--tensor-parallel-size", "4", "--dtype", "bfloat16", "--block-size", "32", "--max-num-batched-tokens", "8192", "--host", "0.0.0.0", "--port", "8000"]
 
 # -- Container port
 containerPort: 8000
@@ -33,14 +33,14 @@ resources:
     # -- CPU memory configuration
     memory: 32Gi
     # -- Number of gpus used
-    nvidia.com/gpu: 1
+    nvidia.com/gpu: 8
   limits:
     # -- Number of CPUs
     cpu: 32
     # -- CPU memory configuration
     memory: 32Gi
     # -- Number of gpus used
-    nvidia.com/gpu: 1
+    nvidia.com/gpu: 8
 
 # -- Type of gpu used
 gpuModels:
