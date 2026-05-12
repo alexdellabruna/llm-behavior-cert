@@ -30,15 +30,15 @@ for d in os.listdir("out/"):
             compare_result_arr = json.loads(compare_file_raw)
             compare_result_arr = [r["score"] for r in compare_result_arr]
 
-            plt.plot(range(len(result_arr)), result_arr)
             plt.plot(range(len(compare_result_arr)), compare_result_arr)
+            plt.plot(range(len(result_arr)), result_arr)
             os.makedirs("./analyze_out", exist_ok=True)
             os.makedirs(f"./analyze_out/{d}", exist_ok=True)
             plt.savefig(os.path.join("analyze_out/", d + ".png"))
             plt.show()
             plt.close()
 
-            js_distance=spd.jensenshannon(result_arr, compare_result_arr)
+            js_distance=spd.jensenshannon(compare_result_arr, result_arr)
 
             integral=False
 
