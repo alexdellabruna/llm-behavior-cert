@@ -100,4 +100,5 @@ for f in prompt_files:
 
             except Exception as e:
                 print("Error during generation ", str(e))
-                p_index = last_successful_index+1
+                if last_successful_index!=0:
+                    p_index = last_successful_index+1
