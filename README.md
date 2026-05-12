@@ -41,12 +41,12 @@ Results:
 
 Math Prompt Integrity:
 
-Final result: integral (JS Divergence: 0.014695053052187828)
+Final result: integral (JS Divergence: 02263192461839762)
 
 <img src="analyze_out/math.png">
 
 Logics Prompt Integrity:
 
-Final result: integral (JS Divergence: 0.015626376119020395)
+Final result: not integral (JS Divergence: 0.10179068552486605)
 
 <img src="analyze_out/logics.png">
