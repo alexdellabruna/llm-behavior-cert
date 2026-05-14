@@ -41,7 +41,7 @@ Results:
 
 Math Prompt Integrity:
 
-Final result: integral (JS Divergence: 02263192461839762)
+Final result: integral (JS Divergence: 0.02263192461839762)
 
 <img src="analyze_out/math.png">
 
